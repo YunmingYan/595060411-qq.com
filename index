@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <title>工业1172抗疫签名墙</title>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+</head>
+<style>
+canvas{ border:2px solid #000;}
+</style>
+<body>
+<div id="can" class="container">
+	<div id="can2" class="raw">
+		<div id="can3" class="col-md-12">
+    		<canvas id="draw" width="1080" height="500" style="margin: 0 auto;"></canvas>
+			<button onclick="clearcanvas()" class="btn btn-danger">清除</button>
+			<button onclick="submit()" class="btn btn-success">提交</button>
+		</div>
+	</div>
+</div>
+			
+			
+			
+<script type="text/javascript">
+    $(document).ready(function(){
+    var canvas=document.getElementById("draw");
+    var draw=canvas.getContext("2d");
+    draw.lineWidth=10;        //线条粗细
+    draw.strokeStyle="black";    //颜色
+    var godraw=false;        
+    
+        //按下鼠标
+    $("#draw").mousedown(function(e){
+        //准确坐标
+    var mouseX=e.pageX-this.offsetLeft;
+    var mouseY=e.pageY-this.offsetTop;
+	var ex = $('#can').css('margin-left')
+	var exx = $('#can').css('padding-left')
+	var exn = parseInt(ex)
+	var exxn = parseInt(exx)
+//	console.log(exn)
+//	console.log(exxn)
+	mouseX = mouseX-exn-exxn;
+    draw.moveTo(mouseX,mouseY);
+    godraw=true;
+
+    })
+        //放开鼠标
+        $("#draw").mouseup(function(e){
+    godraw=false;
+    })
+        //移动鼠标
+        $("#draw").mousemove(function(e){
+        if(godraw){
+			var mouseX=e.pageX-this.offsetLeft;
+			var mouseY=e.pageY-this.offsetTop;
+			var ex = $('#can').css('margin-left')
+			var exx = $('#can').css('padding-left')
+			var exn = parseInt(ex)
+			var exxn = parseInt(exx)
+			console.log(exn)
+			console.log(exxn)
+			mouseX = mouseX-exn-exxn;
+			draw.lineTo(mouseX+4,mouseY+4);
+			draw.stroke();
+        }
+
+    })
+    
+    })
+	
+	
+function clearcanvas(){
+	 var canvas = document.getElementById('draw'); //获取画布
+     var p100=canvas.getContext("2d");  //设置模式
+	p100.fillStyle="#FFFFFF";  
+    p100.beginPath();  
+    p100.fillRect(0,0,canvas.width,canvas.height);  
+    p100.closePath();  
+ }
+
+function submit(){
+	alert('提交成功~')
+}
+
+</script>
+</body>
+</html>
